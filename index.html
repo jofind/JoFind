@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JoFind</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- زر اللغة -->
+    <button id="langToggle" class="lang-btn">AR</button>
+
+    <!-- شعار -->
+    <div class="badge" id="badgeText">
+      <span class="sparkle">✳️</span>
+      <span id="badgeTextContent">Smart Deal Finder</span>
+    </div>
+
+    <!-- العنوان -->
+    <h1 id="title">Jofind Find cheaper alternatives</h1>
+    <h2 id="subtitle">
+      <span class="subtitle-text">
+        <span class="seconds">in seconds</span>
+      </span>
+    </h2>
+    <p id="description">
+      Paste a product link or name below. We'll help you find better deals
+    </p>
+
+    <!-- خانة البحث -->
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Paste a product link or type a name">
+      <button id="findBtn">Find Deals</button>
+    </div>
+
+    <!-- مكان عرض النتائج -->
+    <div id="resultsBox" style="margin-top:20px;"></div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
