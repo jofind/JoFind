@@ -12,7 +12,7 @@ let currentLang = "en";
 
 const texts = {
   en: {
-    badge: "✳️ Smart Deal Finder",
+    badge: "❁ Smart Deal Finder",
     title: "Jofind Find cheaper alternatives",
     subtitleSeconds: "in seconds",
     description: "Paste a product link or name below. We'll help you find better deals",
@@ -20,7 +20,7 @@ const texts = {
     button: "Find Deals",
   },
   ar: {
-    badge: "✳️ مكتشف العروض الذكية",
+    badge: "❁ مكتشف العروض الذكية",
     title: "جوفايندابحث عن بدائل أرخص",
     subtitleSeconds: "في ثوانٍ",
     description: "الصقي رابط المنتج أو اكتب اسمه وسنساعدك في إيجاد أفضل سعر",
@@ -39,7 +39,7 @@ langBtn.addEventListener("click", () => {
   description.textContent = langTexts.description;
   searchInput.placeholder = langTexts.placeholder;
   findBtn.textContent = langTexts.button;
-  badgeTextContent.textContent = langTexts.badge.replace("✳️", "").trim();
+  badgeTextContent.textContent = langTexts.badge.replace("❁", "").trim();
   langBtn.textContent = currentLang === "en" ? "AR" : "EN";
 });
 
@@ -53,23 +53,32 @@ findBtn.addEventListener("click", () => {
 
   resultsBox.innerHTML = "";
 
-  // بدائل افتراضية مع روابط أفلييت + الأسعار
   const dummyDeals = [
-    {name:`${product} - Deal 1`, originalPrice:12, dealPrice:10, url:"https://www.amazon.com/dp/EXAMPLE?tag=YourAffiliateID"},
-    {name:`${product} - Deal 2`, originalPrice:18, dealPrice:15, url:"https://www.aliexpress.com/item/EXAMPLE?aff_fcid=YourAffiliateID"},
-    {name:`${product} - Deal 3`, originalPrice:25, dealPrice:20, url:"https://www.ebay.com/itm/EXAMPLE?campid=YourAffiliateID"},
+    { name: product + " Alternative 1", originalPrice: 40, dealPrice: 25, image: "https://via.placeholder.com/400x300", url: "https://www.aliexpress.com" },
+    { name: product + " Alternative 2", originalPrice: 35, dealPrice: 22, image: "https://via.placeholder.com/400x300", url: "https://www.aliexpress.com" },
+    { name: product + " Alternative 3", originalPrice: 50, dealPrice: 30, image: "https://via.placeholder.com/400x300", url: "https://www.aliexpress.com" }
   ];
 
+  const bestPrice = Math.min(...dummyDeals.map(d => d.dealPrice));
+
   dummyDeals.forEach(prod => {
-    const profit = prod.originalPrice - prod.dealPrice;
+    const saving = prod.originalPrice - prod.dealPrice;
+    const percent = Math.round((saving / prod.originalPrice) * 100);
+
     const card = document.createElement("div");
+    card.className = "result-card";
+
     card.innerHTML = `
-      <h3>${prod.name}</h3>
-      <p>Original: $${prod.originalPrice}</p>
-      <p>Deal: $${prod.dealPrice}</p>
-      <p>Profit: $${profit}</p>
-      <a href="${prod.url}" target="_blank">Go to product</a>
+      
+      <img src="${prod.image}" alt="${prod.name}">
+      <h3 style="margin:16px">${prod.name}</h3>
+      <div class="price-row">Original price: <strong>${prod.originalPrice}</strong></div>
+      <div class="price-row">New price: <strong>${prod.dealPrice}</strong></div>
+      <div class="saving">Save ${saving} (${percent}%)</div>
+      <a href="${prod.url}" target="_blank" style="margin:16px; display:inline-block; font-weight:600; color:#7a7fe8;">Buy this product</a>
     `;
+
     resultsBox.appendChild(card);
-  });
-});
+  }); // <--- هذا يغلق الـ forEach
+
+}); // <--- هذا يغلق الـ addEventListener
